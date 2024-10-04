@@ -1,9 +1,14 @@
 import SwiftUI
 
-struct CardItem: Identifiable {
-    let id = UUID()
-    let content: AnyView
-    let backgroundColor: AnyView
+public struct CardItem: Identifiable {
+    public let id = UUID()
+    public let content: AnyView
+    public let backgroundColor: AnyView
+
+    public init(content: AnyView, backgroundColor: AnyView) {
+        self.content = content
+        self.backgroundColor = backgroundColor
+    }
 }
 
 struct CardView: View {
@@ -22,15 +27,15 @@ struct CardView: View {
     }
 }
 
-struct WalletCardStack: View {
-    let cards: [CardItem]
-    let maxHeight: CGFloat = UIScreen.main.bounds.height
-    let minHeight: CGFloat
-    let cardSpacing: CGFloat = 60
-    let expandedSpacing: CGFloat = 100
-    let topOffset: CGFloat
-    let shouldLockWhenExpanded: Bool
-    let orderedExpansion: Bool
+public struct WalletCardStack: View {
+    public let cards: [CardItem]
+    public let maxHeight: CGFloat = UIScreen.main.bounds.height
+    public let minHeight: CGFloat
+    public let cardSpacing: CGFloat = 60
+    public let expandedSpacing: CGFloat = 100
+    public let topOffset: CGFloat
+    public let shouldLockWhenExpanded: Bool
+    public let orderedExpansion: Bool
 
     @State private var cardStates: [CardState] = []
     @State private var activeExpandIndex: Int = 0
@@ -44,7 +49,7 @@ struct WalletCardStack: View {
         var isLocked: Bool = false
     }
 
-    init(cards: [CardItem], shouldLockWhenExpanded: Bool = false, orderedExpansion: Bool = false) {
+    public init(cards: [CardItem], shouldLockWhenExpanded: Bool = false, orderedExpansion: Bool = false) {
         self.cards = cards
         self.minHeight = UIScreen.main.bounds.height * 0.15
         self.topOffset = UIScreen.main.bounds.height * 0.1
@@ -52,7 +57,7 @@ struct WalletCardStack: View {
         self.orderedExpansion = orderedExpansion
     }
 
-    var body: some View {
+    public var body: some View {
         ZStack(alignment: .bottom) {
             ForEach(Array(cards.enumerated().reversed()), id: \.element.id) { index, card in
                 CardView(content: card.content, backgroundColor: card.backgroundColor)
